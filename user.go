@@ -46,3 +46,15 @@ func GetCryptData(sessionKey, encryptedData, iv string) (*wxbizdatacrypt.UserInf
 	pc := wxbizdatacrypt.NewWXBizDataCrypt(config.ReaderMinApp.AppID, sessionKey)
 	return pc.Decrypt(encryptedData, iv)
 }
+
+// GetFansByOpenID 解密数据
+func GetFansByOpenID(openID string) (*Fans, error) {
+	var err error
+	var fans Fans
+	if openID != "" {
+		fans.GetFansByOpenID(openID)
+	} else {
+		err = errors.New(string(`openID is empty!!!`))
+	}
+	return &fans, err
+}
