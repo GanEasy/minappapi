@@ -12,6 +12,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/labstack/echo"
+	"github.com/lunny/html2md"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	wxbizdatacrypt "github.com/yilee/wx-biz-data-crypt"
@@ -82,7 +83,9 @@ func GetContent(c echo.Context) error {
 		return c.String(http.StatusOK, "0")
 	}
 
-	input := []byte(info.Content)
+	md := html2md.Convert(info.Content)
+	input := []byte(md)
+	// input := []byte(info.Content)
 	unsafe := blackfriday.MarkdownCommon(input)
 	content := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 
