@@ -23,7 +23,10 @@ func main() {
 		openID := c.QueryParam("openid")
 		url := c.QueryParam("url")
 		cs := cpi.CheckSubcribe(openID, url)
-		return c.JSON(http.StatusOK, cs)
+		type Ret struct {
+			Status bool
+		}
+		return c.JSON(http.StatusOK, Ret{Status: cs})
 	})
 	// 获取openid
 	e.GET("/subscribe", func(c echo.Context) error {
@@ -31,7 +34,10 @@ func main() {
 		url := c.QueryParam("url")
 		formID := c.QueryParam("formid")
 		cs := cpi.PostSubcribe(openID, formID, url)
-		return c.JSON(http.StatusOK, cs)
+		type Ret struct {
+			Status bool
+		}
+		return c.JSON(http.StatusOK, Ret{Status: cs})
 	})
 	// 解密数据内容
 	e.GET("/crypt", func(c echo.Context) error {
