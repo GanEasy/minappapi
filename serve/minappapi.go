@@ -20,16 +20,16 @@ func main() {
 	})
 	// 获取openid
 	e.GET("/checksubscribe", func(c echo.Context) error {
-		openID := c.QueryParam("open_id")
+		openID := c.QueryParam("openid")
 		url := c.QueryParam("url")
 		cs := cpi.CheckSubcribe(openID, url)
 		return c.JSON(http.StatusOK, cs)
 	})
 	// 获取openid
 	e.GET("/subscribe", func(c echo.Context) error {
-		openID := c.QueryParam("open_id")
+		openID := c.QueryParam("openid")
 		url := c.QueryParam("url")
-		formID := c.QueryParam("form_id")
+		formID := c.QueryParam("formid")
 		cs := cpi.PostSubcribe(openID, formID, url)
 		return c.JSON(http.StatusOK, cs)
 	})
