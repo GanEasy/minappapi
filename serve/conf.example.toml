@@ -1,5 +1,14 @@
 # This is a TOML document. Boom.
 
 [readerMinApp]
-app_id = ""
-app_secret = ""
+app_id = "wx4d466242a9ecc265"
+app_secret = "0e353a37bcc03dea9ec30926173834e0"
+
+[database]
+type = "postgres"
+host = "119.23.237.215"
+user = "xiaoyi"
+password = "123456"
+sslmode = "disable"
+dbname = "readerminapp"
+port = 5432

@@ -27,8 +27,26 @@ func CheckSubcribe(openID, url string) bool {
 	return false
 }
 
-func PostSubcribe(openID, formID, url string) {
+// PostSubcribe 提交关注请求
+func PostSubcribe(openID, formID, url string) bool {
+	if formID == "" {
+		return false
+	}
+	fans, err := GetFansByOpenID(openID)
+	if err != nil {
+		return false
+	}
+	post, err := GetPostByURL(url)
+	if err != nil {
+		return false
+	}
+	subscribe := Subscribe{FansID: fans.ID, PostID: post.ID, FormID: formID, Push: false}
 
+	DB().Create(&subscribe)
+	if subscribe.ID > 0 {
+		return true
+	}
+	return false
 }
 
 // GetPostByURL 获取post

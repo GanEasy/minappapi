@@ -18,6 +18,21 @@ func main() {
 		ret, _ := cpi.GetOpenID(code)
 		return c.JSON(http.StatusOK, ret)
 	})
+	// 获取openid
+	e.GET("/checksubscribe", func(c echo.Context) error {
+		openID := c.QueryParam("open_id")
+		url := c.QueryParam("url")
+		cs := cpi.CheckSubcribe(openID, url)
+		return c.JSON(http.StatusOK, cs)
+	})
+	// 获取openid
+	e.GET("/subscribe", func(c echo.Context) error {
+		openID := c.QueryParam("open_id")
+		url := c.QueryParam("url")
+		formID := c.QueryParam("form_id")
+		cs := cpi.PostSubcribe(openID, formID, url)
+		return c.JSON(http.StatusOK, cs)
+	})
 	// 解密数据内容
 	e.GET("/crypt", func(c echo.Context) error {
 		sessionKey := c.QueryParam("sk")
