@@ -17,7 +17,7 @@ func CheckSubcribe(openID, url string) bool {
 	}
 
 	var subscribe Subscribe
-	DB().Where(Subscribe{FansID: fans.ID, PostID: post.ID, Push: false}).Order("id desc").First(subscribe)
+	DB().Where(&Subscribe{FansID: fans.ID, PostID: post.ID, Push: false}).Order("id desc").First(&subscribe)
 
 	// 7天前
 	day7 := time.Now().AddDate(0, 0, -7)
