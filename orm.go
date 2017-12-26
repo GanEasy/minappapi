@@ -20,6 +20,14 @@ func (post *Post) Save() {
 	DB().Save(&post)
 }
 
+// GetSubscribePost Post
+func (post *Post) GetSubscribePost() []Post {
+	var posts []Post
+	// DB().Where(&Post{}).Find(&posts)
+	DB().Find(&posts)
+	return posts
+}
+
 // Save Fans
 func (fans *Fans) Save() {
 	DB().Save(&fans)
@@ -28,4 +36,11 @@ func (fans *Fans) Save() {
 // Save Subscribe
 func (subscribe *Subscribe) Save() {
 	DB().Save(&subscribe)
+}
+
+// GetSubscribeCheckList Subscribe
+func (subscribe *Subscribe) GetSubscribeCheckList() []Subscribe {
+	var subscribes []Subscribe
+	DB().Find(&subscribes)
+	return subscribes
 }

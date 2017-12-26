@@ -5,6 +5,12 @@ import (
 	"time"
 )
 
+//GetSubcribePost 检查订阅状况
+// func GetSubcribePost() {
+// 	var post Post
+// 	posts := post.GetSubscribePost()
+// }
+
 //CheckSubcribe 检查订阅状况
 func CheckSubcribe(openID, url string) bool {
 	fans, err := GetFansByOpenID(openID)
