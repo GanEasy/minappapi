@@ -1,6 +1,11 @@
 package minappapi
 
-import "testing"
+import (
+	"encoding/json"
+	"testing"
+
+	"github.com/yizenghui/reader"
+)
 
 // func Test_MapMake(t *testing.T) {
 // 	list, _ := GetList(`http://www.loxow.com/97371.shtml`)
@@ -9,5 +14,16 @@ import "testing"
 
 func Test_GetPostChapter(t *testing.T) {
 	list := GetPostChapter(`http://book.zongheng.com/showchapter/523438.html`)
-	t.Fatal(list)
+
+	b, err := json.Marshal(list)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// t.Fatal(string(b))
+
+	var jlist []reader.Link
+
+	json.Unmarshal([]byte(string(b)), &jlist)
+
+	t.Fatal(jlist[0])
 }
