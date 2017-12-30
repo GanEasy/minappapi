@@ -38,6 +38,13 @@ func (subscribe *Subscribe) Save() {
 	DB().Save(&subscribe)
 }
 
+// GetSubscribeByPostID Subscribe
+func (subscribe *Subscribe) GetSubscribeByPostID(postID uint) []Subscribe {
+	var subscribes []Subscribe
+	DB().Where(Subscribe{PostID: postID}).Find(&subscribes)
+	return subscribes
+}
+
 // GetSubscribeCheckList Subscribe
 func (subscribe *Subscribe) GetSubscribeCheckList() []Subscribe {
 	var subscribes []Subscribe

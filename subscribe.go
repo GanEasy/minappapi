@@ -5,6 +5,15 @@ import (
 	"time"
 )
 
+//TokenServe token 服务器
+var TokenServe *DefaultAccessTokenServer
+
+func init() {
+
+	TokenServe = NewDefaultAccessTokenServer(config.ReaderMinApp.AppID, config.ReaderMinApp.AppSecret)
+
+}
+
 //GetSubcribePost 检查订阅状况
 // func GetSubcribePost() {
 // 	var post Post
@@ -65,4 +74,20 @@ func GetPostByURL(url string) (*Post, error) {
 		err = errors.New(string(`url is empty!!!`))
 	}
 	return &post, err
+}
+
+// NoticeSubscribePostUpdate 通知关注更新书籍已经更新
+func NoticeSubscribePostUpdate(url string) bool {
+	post, err := GetPostByURL(url)
+	if err != nil {
+		return false
+	}
+	var subscribe Subscribe
+	subscribes := subscribe.GetSubscribeByPostID(post.ID)
+	if len(subscribes) > 0 {
+		// for _, sub := range subscribes {
+
+		// }
+	}
+	return true
 }
