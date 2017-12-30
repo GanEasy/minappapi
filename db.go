@@ -36,6 +36,7 @@ type Post struct {
 type Subscribe struct {
 	ID        uint   `gorm:"primary_key"`
 	FansID    uint   `sql:"index"`               //粉丝 ID
+	OpenID    string `gorm:"type:varchar(255);"` //提交的openid
 	PostID    uint   `sql:"index"`               //post ID
 	FormID    string `gorm:"type:varchar(255);"` //订阅formID，一次订阅只能推送一次通知
 	Push      bool   //是否推送

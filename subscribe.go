@@ -1,6 +1,7 @@
 package minappapi
 
 import (
+	"encoding/json"
 	"errors"
 	"time"
 )
@@ -55,7 +56,20 @@ func PostSubcribe(openID, formID, url string) bool {
 	if err != nil {
 		return false
 	}
-	subscribe := Subscribe{FansID: fans.ID, PostID: post.ID, FormID: formID, Push: false}
+	// 如果没有更新过章节内容，关注时先初始化
+	if post.ChapterFragments == "" {
+		b, err := json.Marshal(GetPostChapter(url))
+		if err != nil {
+			return false
+		}
+		post.ChapterFragments = string(b)
+	}
+	// 增加关注..
+	post.FolNum++
+	post.SubNum++
+	post.Save()
+
+	subscribe := Subscribe{FansID: fans.ID, PostID: post.ID, FormID: formID, Push: false, OpenID: openID}
 
 	DB().Create(&subscribe)
 	if subscribe.ID > 0 {
@@ -77,17 +91,17 @@ func GetPostByURL(url string) (*Post, error) {
 }
 
 // NoticeSubscribePostUpdate 通知关注更新书籍已经更新
-func NoticeSubscribePostUpdate(url string) bool {
-	post, err := GetPostByURL(url)
-	if err != nil {
-		return false
-	}
+func NoticeSubscribePostUpdate(post *Post) bool {
 	var subscribe Subscribe
 	subscribes := subscribe.GetSubscribeByPostID(post.ID)
 	if len(subscribes) > 0 {
-		// for _, sub := range subscribes {
-
-		// }
+		for _, sub := range subscribes {
+			SendPostUpdateMSG(sub.OpenID, sub.FormID, "tttt", "ccccc", "")
+			sub.Push = true
+			sub.Save()
+		}
 	}
+	post.FolNum = 0
+	post.Save()
 	return true
 }

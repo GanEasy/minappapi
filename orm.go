@@ -41,7 +41,7 @@ func (subscribe *Subscribe) Save() {
 // GetSubscribeByPostID Subscribe
 func (subscribe *Subscribe) GetSubscribeByPostID(postID uint) []Subscribe {
 	var subscribes []Subscribe
-	DB().Where(Subscribe{PostID: postID}).Find(&subscribes)
+	DB().Where(Subscribe{PostID: postID, Push: false}).Find(&subscribes)
 	return subscribes
 }
 

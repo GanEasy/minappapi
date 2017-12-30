@@ -13,11 +13,11 @@ func Test_PostSubcribe(t *testing.T) {
 }
 
 func Test_CheckPostChapterUpdateAndPushSubscribe(t *testing.T) {
-	b2 := CheckPostChapterUpdateAndPushSubscribe("http://book.zongheng.com/showchapter/523438.html")
+	b2 := CheckPostChapterUpdateAndPushSubscribe("http://www.51shucheng.net/kehuan/santi/")
 	t.Fatal(b2)
 }
 
 func Test_Token(t *testing.T) {
-	
+
 	t.Fatal(TokenServe.Token())
 }

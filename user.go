@@ -47,11 +47,8 @@ func GetOpenID(code string) (OpenIDData, error) {
 func SendPostUpdateMSG(openID, formID, title, chapter, page string) error {
 	//
 	type Ret struct {
-		ErrCode    int64  `json:"errcode"`
-		ErrMSG     string `json:"errmsg"`
-		SessionKey string `json:"session_key"`
-		ExpiresIn  int64  `json:"expires_in"`
-		OpenID     string `json:"openid"`
+		ErrCode int64  `json:"errcode"`
+		ErrMSG  string `json:"errmsg"`
 	}
 	var ret Ret
 
@@ -71,16 +68,20 @@ func SendPostUpdateMSG(openID, formID, title, chapter, page string) error {
 
 	//MSG 关注通知消息结构
 	type MSG struct {
-		Title template.DataItem `json:"title"`
+		Title   template.DataItem `json:"keyword1"`
+		Chapter template.DataItem `json:"keyword3"`
+		Time    template.DataItem `json:"keyword2"`
 	}
 
 	data := Template{
 		Touser:     openID,
-		TemplateID: openID,
-		Page:       openID,
-		FormID:     openID,
+		TemplateID: "QEhBZIivAI5x0hbWEp4IqBOyYxOo5MhNwK_hQRTf-Qs",
+		Page:       page,
+		FormID:     formID,
 		Data: MSG{
-			Title: template.DataItem{Value: title, Color: ""},
+			Title:   template.DataItem{Value: title, Color: ""},
+			Chapter: template.DataItem{Value: "最新章节", Color: ""},
+			Time:    template.DataItem{Value: "2017年12月30日", Color: ""},
 		},
 		EmphasisKeyword: "",
 	}
