@@ -6,7 +6,7 @@ import (
 )
 
 func Test_CheckSubcribe(t *testing.T) {
-	b2 := CheckSubcribe("oe9Hq0GwS4umXENTCn4lJgxaNVog", "http://book.zongheng.com/showchapter/523438.html")
+	b2 := CheckSubcribe("oe9Hq0GwS4umXENTCn4lJgxaNVog", "http://longfu8.com/")
 	t.Fatal(b2)
 }
 

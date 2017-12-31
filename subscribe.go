@@ -39,7 +39,8 @@ func CheckSubcribe(openID, url string) bool {
 
 	// 7天前
 	day7 := time.Now().AddDate(0, 0, -7)
-	if subscribe.ID > 0 && day7.Before(subscribe.CreatedAt) { // 有订阅id且订阅时间在7天内
+	if subscribe.ID > 0 && !subscribe.Push && day7.Before(subscribe.CreatedAt) { // 有订阅id且订阅时间在7天内
+		// log.Print(subscribe.ID)
 		return true
 	}
 	return false
