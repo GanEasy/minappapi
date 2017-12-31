@@ -3,6 +3,8 @@ package minappapi
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"net/url"
 	"time"
 )
 
@@ -96,7 +98,9 @@ func NoticeSubscribePostUpdate(post *Post) bool {
 	subscribes := subscribe.GetSubscribeByPostID(post.ID)
 	if len(subscribes) > 0 {
 		for _, sub := range subscribes {
-			SendPostUpdateMSG(sub.OpenID, sub.FormID, "tttt", "ccccc", "")
+			//
+			link := fmt.Sprintf("pages/list/index?url=%v", url.QueryEscape(post.URL))
+			SendPostUpdateMSG(sub.OpenID, sub.FormID, post.Title, "您所关注的目录已更新！", link)
 			sub.Push = true
 			sub.Save()
 		}
