@@ -18,7 +18,7 @@ func main() {
 		ret, _ := cpi.GetOpenID(code)
 		return c.JSON(http.StatusOK, ret)
 	})
-	// 获取openid
+	// 检查订阅
 	e.GET("/checksubscribe", func(c echo.Context) error {
 		openID := c.QueryParam("openid")
 		url := c.QueryParam("url")
@@ -28,7 +28,17 @@ func main() {
 		}
 		return c.JSON(http.StatusOK, Ret{Status: cs})
 	})
-	// 获取openid
+	// 取消订阅
+	e.GET("/cancelsubscribe", func(c echo.Context) error {
+		openID := c.QueryParam("openid")
+		url := c.QueryParam("url")
+		cs := cpi.CancelSubcribe(openID, url)
+		type Ret struct {
+			Status bool
+		}
+		return c.JSON(http.StatusOK, Ret{Status: cs})
+	})
+	// 订阅
 	e.GET("/subscribe", func(c echo.Context) error {
 		openID := c.QueryParam("openid")
 		url := c.QueryParam("url")

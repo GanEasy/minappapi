@@ -10,6 +10,10 @@ func Test_CheckSubcribe(t *testing.T) {
 	t.Fatal(b2)
 }
 
+func Test_CancelSubcribe(t *testing.T) {
+	b2 := CancelSubcribe("oe9Hq0GwS4umXENTCn4lJgxaNVog", "http://longfu8.com/")
+	t.Fatal(b2)
+}
 func Test_PostSubcribe(t *testing.T) {
 	b2 := PostSubcribe("oe9Hq0GwS4umXENTCn4lJgxaNVog", "xxss", "http://book.zongheng.com/showchapter/523438.html")
 	t.Fatal(b2)

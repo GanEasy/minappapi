@@ -47,6 +47,22 @@ func CheckSubcribe(openID, url string) bool {
 	return false
 }
 
+//CancelSubcribe 取消订阅
+func CancelSubcribe(openID, url string) bool {
+	fans, err := GetFansByOpenID(openID)
+	if err != nil {
+		return false
+	}
+	post, err := GetPostByURL(url)
+	if err != nil {
+		return false
+	}
+	// 订阅软删除
+	DB().Where(&Subscribe{FansID: fans.ID, PostID: post.ID}).Where("push = ?", false).Delete(Subscribe{})
+
+	return true
+}
+
 // PostSubcribe 提交关注请求
 func PostSubcribe(openID, formID, url string) bool {
 	if formID == "" {
