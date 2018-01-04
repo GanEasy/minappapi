@@ -3,8 +3,6 @@ package minappapi
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
-	"net/url"
 	"time"
 )
 
@@ -78,10 +76,18 @@ func PostSubcribe(openID, formID, url string) bool {
 	}
 	// 如果没有更新过章节内容，关注时先初始化
 	if post.ChapterFragments == "" {
-		b, err := json.Marshal(GetPostChapter(url))
+
+		data, err := GetList(url)
 		if err != nil {
 			return false
 		}
+		list := GetPostChapter(data.Links)
+		b, err := json.Marshal(list)
+
+		if err != nil {
+			return false
+		}
+		post.Title = data.Title
 		post.ChapterFragments = string(b)
 	}
 	// 增加关注..
@@ -117,8 +123,9 @@ func NoticeSubscribePostUpdate(post *Post) bool {
 	if len(subscribes) > 0 {
 		for _, sub := range subscribes {
 			//
-			link := fmt.Sprintf("pages/list/index?url=%v", url.QueryEscape(post.URL))
-			SendPostUpdateMSG(sub.OpenID, sub.FormID, post.Title, "您所关注的目录已更新！", link)
+			// link := fmt.Sprintf("pages/list/index?url=%v", url.QueryEscape(post.URL))
+			link := string("pages/index/index")
+			SendPostUpdateMSG(sub.OpenID, sub.FormID, link, link)
 			sub.Push = true
 			sub.Save()
 		}

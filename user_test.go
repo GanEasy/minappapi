@@ -8,6 +8,6 @@ func Test_GetOpenID(t *testing.T) {
 }
 
 func Test_SendPostUpdateMSG(t *testing.T) {
-	u2 := SendPostUpdateMSG("oe9Hq0GwS4umXENTCn4lJgxaNVog", "af1a0cdf6adfbf4030358fc2b4264d24", "tttt", "ccccc", "")
+	u2 := SendPostUpdateMSG("oe9Hq0GwS4umXENTCn4lJgxaNVog", "af1a0cdf6adfbf4030358fc2b4264d24", "tttt", "")
 	t.Fatal(u2)
 }

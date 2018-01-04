@@ -44,7 +44,7 @@ func GetOpenID(code string) (OpenIDData, error) {
 }
 
 //SendPostUpdateMSG 发送更新通知
-func SendPostUpdateMSG(openID, formID, title, chapter, page string) error {
+func SendPostUpdateMSG(openID, formID, title, page string) error {
 	//
 	type Ret struct {
 		ErrCode int64  `json:"errcode"`

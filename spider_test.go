@@ -13,11 +13,9 @@ import (
 // }
 
 func Test_GetPostChapter(t *testing.T) {
-	list := GetPostChapter(`http://book.zongheng.com/showchapter/523438.html`)
-
-	b, err := json.Marshal(list)
+	b, err := GetPostChapterByte(`http://book.zongheng.com/showchapter/523438.html`)
 	if err != nil {
-		t.Fatal(err)
+
 	}
 	// t.Fatal(string(b))
 
@@ -28,7 +26,7 @@ func Test_GetPostChapter(t *testing.T) {
 	t.Fatal(jlist[0])
 }
 
-// 执行测试
+// 执行测试 检查
 func Test_RunSubcribePostUpdateCheck(t *testing.T) {
 	RunSubcribePostUpdateCheck()
 }

@@ -19,8 +19,8 @@ func RunSubcribePostUpdateCheck() {
 
 // CheckPostChapterUpdateAndPushSubscribe 获取文章更新并推送通知
 func CheckPostChapterUpdateAndPushSubscribe(post *Post) bool {
-	list := GetPostChapter(post.URL)
-	b, err := json.Marshal(list)
+
+	b, err := GetPostChapterByte(post.URL)
 	if err != nil {
 		return false
 	}
@@ -38,8 +38,7 @@ func CheckPostChapterUpdateAndPushSubscribe(post *Post) bool {
 
 // CheckPostChapterUpdateAndPushSubscribeByURL 获取文章更新并推送通知
 func CheckPostChapterUpdateAndPushSubscribeByURL(url string) bool {
-	list := GetPostChapter(url)
-	b, err := json.Marshal(list)
+	b, err := GetPostChapterByte(url)
 	if err != nil {
 		return false
 	}
@@ -62,26 +61,27 @@ func CheckPostChapterUpdateAndPushSubscribeByURL(url string) bool {
 
 // GetPostChapterByte 获取链接内容
 func GetPostChapterByte(url string) (b []byte, err error) {
-	list := GetPostChapter(url)
+	data, err := GetList(url)
+	if err != nil {
+		return
+	}
+	list := GetPostChapter(data.Links)
 	b, err = json.Marshal(list)
 	return
 }
 
 // GetPostChapter 获取章节片段
-func GetPostChapter(url string) []reader.Link {
-	list, err := GetList(url)
-	if err != nil {
+func GetPostChapter(links []reader.Link) []reader.Link {
 
-	}
-	var links []reader.Link
-	if len(list.Links) > 10 {
-		for _, v := range list.Links[0:5] {
-			links = append(links, v)
+	var list []reader.Link
+	if len(links) > 10 {
+		for _, v := range links[0:5] {
+			list = append(list, v)
 		}
 
-		for _, v := range list.Links[len(list.Links)-5:] {
-			links = append(links, v)
+		for _, v := range links[len(links)-5:] {
+			list = append(list, v)
 		}
 	}
-	return links
+	return list
 }
