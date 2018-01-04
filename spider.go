@@ -2,6 +2,7 @@ package minappapi
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/yizenghui/reader"
 )
@@ -12,7 +13,8 @@ func RunSubcribePostUpdateCheck() {
 	posts := post.GetSubscribePost()
 	if len(posts) > 0 {
 		for _, post := range posts {
-			CheckPostChapterUpdateAndPushSubscribe(&post)
+			go CheckPostChapterUpdateAndPushSubscribe(&post)
+			time.Sleep(time.Second)
 		}
 	}
 }
