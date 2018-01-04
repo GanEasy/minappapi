@@ -125,7 +125,7 @@ func NoticeSubscribePostUpdate(post *Post) bool {
 			//
 			// link := fmt.Sprintf("pages/list/index?url=%v", url.QueryEscape(post.URL))
 			link := string("pages/index/index")
-			SendPostUpdateMSG(sub.OpenID, sub.FormID, link, link)
+			SendPostUpdateMSG(sub.OpenID, sub.FormID, post.Title, link)
 			sub.Push = true
 			sub.Save()
 		}
