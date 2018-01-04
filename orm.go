@@ -24,7 +24,7 @@ func (post *Post) Save() {
 func (post *Post) GetSubscribePost() []Post {
 	var posts []Post
 	// DB().Where(&Post{}).Find(&posts)
-	DB().Find(&posts)
+	DB().Where("FolNum > 0").Find(&posts)
 	return posts
 }
 

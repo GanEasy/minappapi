@@ -6,14 +6,38 @@ import (
 	"github.com/yizenghui/reader"
 )
 
-//GetSubcribePost 检查订阅状况
-// func GetSubcribePost() {
-// 	var post Post
-// 	posts := post.GetSubscribePost()
-// }
+// RunSubcribePostUpdateCheck 检查订阅状况并向订阅者推送更新
+func RunSubcribePostUpdateCheck() {
+	var post Post
+	posts := post.GetSubscribePost()
+	if len(posts) > 0 {
+		for _, post := range posts {
+			CheckPostChapterUpdateAndPushSubscribe(&post)
+		}
+	}
+}
 
 // CheckPostChapterUpdateAndPushSubscribe 获取文章更新并推送通知
-func CheckPostChapterUpdateAndPushSubscribe(url string) bool {
+func CheckPostChapterUpdateAndPushSubscribe(post *Post) bool {
+	list := GetPostChapter(post.URL)
+	b, err := json.Marshal(list)
+	if err != nil {
+		return false
+	}
+
+	if post.ChapterFragments != string(b) {
+		post.ChapterFragments = string(b)
+		// todo 发通知咯 有变化了
+		NoticeSubscribePostUpdate(post)
+
+		return true
+	}
+
+	return false
+}
+
+// CheckPostChapterUpdateAndPushSubscribeByURL 获取文章更新并推送通知
+func CheckPostChapterUpdateAndPushSubscribeByURL(url string) bool {
 	list := GetPostChapter(url)
 	b, err := json.Marshal(list)
 	if err != nil {

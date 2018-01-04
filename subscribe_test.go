@@ -19,8 +19,8 @@ func Test_PostSubcribe(t *testing.T) {
 	t.Fatal(b2)
 }
 
-func Test_CheckPostChapterUpdateAndPushSubscribe(t *testing.T) {
-	b2 := CheckPostChapterUpdateAndPushSubscribe("http://www.51shucheng.net/kehuan/santi/")
+func Test_CheckPostChapterUpdateAndPushSubscribeByURL(t *testing.T) {
+	b2 := CheckPostChapterUpdateAndPushSubscribeByURL("http://www.51shucheng.net/kehuan/santi/")
 	t.Fatal(b2)
 }
 

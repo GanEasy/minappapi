@@ -2,12 +2,21 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	cpi "github.com/GanEasy/minappapi"
 	"github.com/labstack/echo"
 )
 
+//CheckSubcribeUpdate  每天处理订阅更新
+func CheckSubcribeUpdate() {
+	ticker := time.NewTicker(time.Hour * 6)
+	for _ = range ticker.C {
+		go cpi.RunSubcribePostUpdateCheck()
+	}
+}
 func main() {
+	go CheckSubcribeUpdate()
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "welcome to reader minapp api!")

@@ -27,3 +27,8 @@ func Test_GetPostChapter(t *testing.T) {
 
 	t.Fatal(jlist[0])
 }
+
+// 执行测试
+func Test_RunSubcribePostUpdateCheck(t *testing.T) {
+	RunSubcribePostUpdateCheck()
+}

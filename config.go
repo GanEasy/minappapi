@@ -2,6 +2,7 @@ package minappapi
 
 import "github.com/BurntSushi/toml"
 
+// Config 配置
 type Config struct {
 	ReaderMinApp ReaderMinApp
 	Database     Database
@@ -22,6 +23,12 @@ type Database struct {
 	Sslmode  string `toml:"sslmode"`
 	Dbname   string `toml:"dbname"`
 	Port     int    `toml:"port"`
+}
+
+//Task 配置
+type Task struct {
+	Worker   int `toml:"worker"`
+	Capacity int `toml:"capacity"`
 }
 
 var confFile = "conf.toml"

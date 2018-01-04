@@ -68,20 +68,18 @@ func SendPostUpdateMSG(openID, formID, title, chapter, page string) error {
 
 	//MSG 关注通知消息结构
 	type MSG struct {
-		Title   template.DataItem `json:"keyword1"`
-		Chapter template.DataItem `json:"keyword3"`
-		Time    template.DataItem `json:"keyword2"`
+		Title    template.DataItem `json:"keyword1"`
+		CATEGORY template.DataItem `json:"keyword2"`
 	}
 
 	data := Template{
 		Touser:     openID,
-		TemplateID: "QEhBZIivAI5x0hbWEp4IqBOyYxOo5MhNwK_hQRTf-Qs",
+		TemplateID: "QEhBZIivAI5x0hbWEp4IqMKAb3RhLXCl3eBr1GC_7FE",
 		Page:       page,
 		FormID:     formID,
 		Data: MSG{
-			Title:   template.DataItem{Value: title, Color: ""},
-			Chapter: template.DataItem{Value: "最新章节", Color: ""},
-			Time:    template.DataItem{Value: "2017年12月30日", Color: ""},
+			Title:    template.DataItem{Value: title, Color: ""},
+			CATEGORY: template.DataItem{Value: "文章", Color: ""},
 		},
 		EmphasisKeyword: "",
 	}
