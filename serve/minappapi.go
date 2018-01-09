@@ -84,6 +84,29 @@ func main() {
 		ret, _ := cpi.GetContent(urlStr)
 		return c.JSON(http.StatusOK, ret)
 	})
+
+	
+	// 获取小说目录正文
+	e.GET("/getbookmenu", func(c echo.Context) error {
+		urlStr := c.QueryParam("url")
+		if urlStr == "" {
+			return c.JSON(http.StatusOK, "0")
+		}
+		ret, _ := cpi.GetBookMenu(urlStr)
+		return c.JSON(http.StatusOK, ret)
+	})
+	
+	// 获取小说章节正文
+	e.GET("/getbookcontent", func(c echo.Context) error {
+		urlStr := c.QueryParam("url")
+		if urlStr == "" {
+			return c.JSON(http.StatusOK, "0")
+		}
+		ret, _ := cpi.GetBookContent(urlStr)
+		return c.JSON(http.StatusOK, ret)
+	})
+
+
 	// 图标
 	e.File("favicon.ico", "images/favicon.ico")
 	e.Logger.Fatal(e.Start(":8009"))
