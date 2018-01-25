@@ -21,6 +21,12 @@ func init() {
 // 	posts := post.GetSubscribePost()
 // }
 
+//GetPostByID 通过ID获取post的信息
+func GetPostByID(id int64) (post Post) {
+	post.GetPostByID(id)
+	return
+}
+
 //CheckSubcribe 检查订阅状况
 func CheckSubcribe(openID, url string) bool {
 	fans, err := GetFansByOpenID(openID)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	cpi "github.com/GanEasy/minappapi"
@@ -25,6 +26,12 @@ func main() {
 	e.GET("/getopenid", func(c echo.Context) error {
 		code := c.QueryParam("code")
 		ret, _ := cpi.GetOpenID(code)
+		return c.JSON(http.StatusOK, ret)
+	})
+	// 获取 url geturl
+	e.GET("/geturl", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.QueryParam("id"))
+		ret := cpi.GetPostByID(int64(id))
 		return c.JSON(http.StatusOK, ret)
 	})
 	// 检查订阅

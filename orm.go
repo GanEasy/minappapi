@@ -2,12 +2,17 @@ package minappapi
 
 // GetPostByURL Post 如果没有的话进行初始化
 func (post *Post) GetPostByURL(url string) {
-	DB().Where(Post{URL: url}).FirstOrCreate(post)
+	DB().Where(Post{URL: url}).FirstOrCreate(&post)
+}
+
+// GetPostByID Post 如果没有的话进行初始化
+func (post *Post) GetPostByID(id int64) {
+	DB().First(&post, id)
 }
 
 // GetFansByOpenID Fans 如果没有的话进行初始化
 func (fans *Fans) GetFansByOpenID(openID string) {
-	DB().Where(Fans{OpenID: openID}).FirstOrCreate(fans)
+	DB().Where(Fans{OpenID: openID}).FirstOrCreate(&fans)
 }
 
 // // GetFansByOpenID Fans 如果没有的话进行初始化
