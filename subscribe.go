@@ -3,6 +3,7 @@ package minappapi
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -129,8 +130,8 @@ func NoticeSubscribePostUpdate(post *Post) bool {
 	if len(subscribes) > 0 {
 		for _, sub := range subscribes {
 			//
-			// link := fmt.Sprintf("pages/list/index?url=%v", url.QueryEscape(post.URL))
-			link := string("pages/index/index")
+			link := fmt.Sprintf("pages/index/index?scene=%d", post.ID)
+			// link := string("pages/index/index")
 			SendPostUpdateMSG(sub.OpenID, sub.FormID, post.Title, link)
 			sub.Push = true
 			sub.Save()

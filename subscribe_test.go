@@ -1,10 +1,15 @@
 package minappapi
 
 import (
+	"fmt"
 	"net/url"
 	"testing"
 )
 
+func Test_SpriLink(t *testing.T) {
+	link := fmt.Sprintf("pages/index/index?scene=%d", 12)
+	t.Fatal(link)
+}
 func Test_CheckSubcribe(t *testing.T) {
 	b2 := CheckSubcribe("oe9Hq0GwS4umXENTCn4lJgxaNVog", "http://longfu8.com/")
 	t.Fatal(b2)
