@@ -43,3 +43,8 @@ func GetContent(urlStr string) (ci ContentInfo, err error) {
 		info.PubAt,
 	}, nil
 }
+
+//GetBookContent 获取正文
+func GetBookContent(urlStr string) (reader.BookInfo, error) {
+	return reader.GetBookContent(urlStr)
+}
