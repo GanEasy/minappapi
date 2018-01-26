@@ -60,8 +60,9 @@ func main() {
 		openID := c.FormValue("openid")
 		// openID := c.QueryParam("openid")
 		answer := c.FormValue("answer")
+		formID := c.FormValue("formid")
 		// answer := c.QueryParam("answer")
-		cs := cpi.PostFeedback(openID, answer)
+		cs := cpi.PostFeedback(openID, formID, answer)
 		type Ret struct {
 			Status bool
 		}
