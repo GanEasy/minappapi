@@ -58,9 +58,9 @@ func main() {
 	e.POST("/feedback", func(c echo.Context) error {
 		// Feedback
 		type Feedback struct {
-			OpenID string `json:"openid" form:"openid" query:"openid"`
-			FormID string `json:"formid" form:"formid" query:"formid"`
-			Answer string `json:"answer" form:"answer" query:"answer"`
+			OpenID  string `json:"openid" form:"openid" query:"openid"`
+			FormID  string `json:"formid" form:"formid" query:"formid"`
+			Problem string `json:"problem" form:"problem" query:"problem"`
 		}
 		type Ret struct {
 			Status bool
@@ -71,14 +71,14 @@ func main() {
 		}
 		openID := f.OpenID
 		// openID := c.QueryParam("openid")
-		answer := f.Answer
+		problem := f.Problem
 		formID := f.FormID
 		// openID := c.FormValue("openid")
 		// // openID := c.QueryParam("openid")
 		// answer := c.FormValue("answer")
 		// formID := c.FormValue("formid")
 		// answer := c.QueryParam("answer")
-		cs := cpi.PostFeedback(openID, formID, answer)
+		cs := cpi.PostFeedback(openID, formID, problem)
 		return c.JSON(http.StatusOK, Ret{Status: cs})
 	})
 	// 订阅
