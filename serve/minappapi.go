@@ -54,6 +54,19 @@ func main() {
 		}
 		return c.JSON(http.StatusOK, Ret{Status: cs})
 	})
+	// 反馈问题
+	e.POST("/feedback", func(c echo.Context) error {
+
+		openID := c.FormValue("openid")
+		// openID := c.QueryParam("openid")
+		answer := c.FormValue("answer")
+		// answer := c.QueryParam("answer")
+		cs := cpi.PostFeedback(openID, answer)
+		type Ret struct {
+			Status bool
+		}
+		return c.JSON(http.StatusOK, Ret{Status: cs})
+	})
 	// 订阅
 	e.GET("/subscribe", func(c echo.Context) error {
 		openID := c.QueryParam("openid")
@@ -92,7 +105,6 @@ func main() {
 		return c.JSON(http.StatusOK, ret)
 	})
 
-	
 	// 获取小说目录正文
 	e.GET("/getbookmenu", func(c echo.Context) error {
 		urlStr := c.QueryParam("url")
@@ -102,7 +114,7 @@ func main() {
 		ret, _ := cpi.GetBookMenu(urlStr)
 		return c.JSON(http.StatusOK, ret)
 	})
-	
+
 	// 获取小说章节正文
 	e.GET("/getbookcontent", func(c echo.Context) error {
 		urlStr := c.QueryParam("url")
@@ -112,7 +124,6 @@ func main() {
 		ret, _ := cpi.GetBookContent(urlStr)
 		return c.JSON(http.StatusOK, ret)
 	})
-
 
 	// 图标
 	e.File("favicon.ico", "images/favicon.ico")

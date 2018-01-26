@@ -25,6 +25,11 @@ func (post *Post) Save() {
 	DB().Save(&post)
 }
 
+// Save Feedback
+func (feedback *Feedback) Save() {
+	DB().Save(&feedback)
+}
+
 // GetSubscribePost Post
 func (post *Post) GetSubscribePost() []Post {
 	var posts []Post

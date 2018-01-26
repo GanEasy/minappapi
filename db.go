@@ -19,6 +19,18 @@ type Fans struct {
 	DeletedAt *time.Time `sql:"index"`
 }
 
+// Feedback 粉丝
+type Feedback struct {
+	ID        uint   `gorm:"primary_key"`
+	OpenID    string `gorm:"type:varchar(255);unique_index"` // 微信文章地址
+	Problem   string `gorm:"type:text;"`                     // 问题
+	Answer    string `gorm:"type:text;"`                     // 答复
+	Show      bool   //是否显示
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time `sql:"index"`
+}
+
 // Post 提交的url
 type Post struct {
 	ID               uint   `gorm:"primary_key"`

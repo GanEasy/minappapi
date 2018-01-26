@@ -36,7 +36,7 @@ var config Config
 
 func init() {
 	GetConf()
-	DB().AutoMigrate(&Subscribe{}, &Fans{}, &Post{})
+	DB().AutoMigrate(&Subscribe{}, &Fans{}, &Post{}, &Feedback{})
 }
 
 //GetConf 获取config
