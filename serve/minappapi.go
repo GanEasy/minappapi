@@ -56,16 +56,29 @@ func main() {
 	})
 	// 反馈问题
 	e.POST("/feedback", func(c echo.Context) error {
-
-		openID := c.FormValue("openid")
-		// openID := c.QueryParam("openid")
-		answer := c.FormValue("answer")
-		formID := c.FormValue("formid")
-		// answer := c.QueryParam("answer")
-		cs := cpi.PostFeedback(openID, formID, answer)
+		// Feedback
+		type Feedback struct {
+			OpenID string `json:"openid" form:"openid" query:"openid"`
+			FormID string `json:"formid" form:"formid" query:"formid"`
+			Answer string `json:"answer" form:"answer" query:"answer"`
+		}
 		type Ret struct {
 			Status bool
 		}
+		f := new(Feedback)
+		if err := c.Bind(f); err != nil {
+			return c.JSON(http.StatusOK, Ret{Status: false})
+		}
+		openID := f.OpenID
+		// openID := c.QueryParam("openid")
+		answer := f.Answer
+		formID := f.FormID
+		// openID := c.FormValue("openid")
+		// // openID := c.QueryParam("openid")
+		// answer := c.FormValue("answer")
+		// formID := c.FormValue("formid")
+		// answer := c.QueryParam("answer")
+		cs := cpi.PostFeedback(openID, formID, answer)
 		return c.JSON(http.StatusOK, Ret{Status: cs})
 	})
 	// 订阅
