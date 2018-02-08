@@ -1,9 +1,15 @@
 package minappapi
 
 import (
+	"bytes"
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"os"
 
 	"github.com/chanxuehong/wechat.v2/mp/message/template"
 	wxbizdatacrypt "github.com/yilee/wx-biz-data-crypt"
@@ -103,6 +109,79 @@ func SendPostUpdateMSG(openID, formID, title, page string) error {
 	}
 
 	return err
+}
+
+//GetwxCodeUnlimit 发送更新通知
+func GetwxCodeUnlimit(scene, page string) (file string, err error) {
+
+	name := GetMd5String(fmt.Sprintf(`%v%v`, scene, page))
+	file = fmt.Sprintf(`file/%v.jpg`, name)
+
+	_, err2 := os.Stat(file)
+	if os.IsNotExist(err2) {
+
+		type Template struct {
+			Scene     string      `json:"scene"`
+			Page      string      `json:"page"`
+			Width     int         `json:"width"`
+			AutoColor bool        `json:"auto_color"`
+			LineColor interface{} `json:"line_color"`
+		}
+
+		data := Template{
+			Scene: scene,
+			Page:  page,
+		}
+
+		token, err2 := TokenServe.Token()
+		if err2 != nil {
+			return "", err2
+		}
+		url := fmt.Sprintf(`https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%v`, token)
+
+		b, err := json.Marshal(data)
+		if err != nil {
+			return "", err
+		}
+		_, err = SaveQrcodeImg(url, file, b)
+	}
+	return file, err
+}
+
+func GetMd5String(s string) string {
+	h := md5.New()
+	h.Write([]byte(s))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+// SaveQrcodeImg 保存图片到本地
+func SaveQrcodeImg(imageURL, saveName string, body []byte) (n int64, err error) {
+	out, err := os.Create(saveName)
+	defer out.Close()
+	if err != nil {
+		return
+	}
+	// text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+	// application/json; charset=utf-8
+	resp, err := httpClient.Post(imageURL, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", bytes.NewReader(body))
+
+	if err != nil {
+		return
+	}
+	pix, err := ioutil.ReadAll(resp.Body)
+
+	defer resp.Body.Close()
+	if err != nil {
+		return
+	}
+	n, err = io.Copy(out, bytes.NewReader(pix))
+
+	if err != nil {
+		return
+	}
+	// todo 获取图片类型
+	// fmt.Println(resp.Header.Get("Content-Type"))
+	return
 }
 
 // GetCryptData 解密数据

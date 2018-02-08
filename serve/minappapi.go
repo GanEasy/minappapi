@@ -139,6 +139,22 @@ func main() {
 		return c.JSON(http.StatusOK, ret)
 	})
 
+	// 获取推荐码(图片资源)
+	e.GET("/qrcode", func(c echo.Context) error {
+		scene := c.QueryParam("scene")
+		page := `pages/index/index`
+		if scene == "" {
+			return c.HTML(http.StatusOK, "")
+		}
+		fileName, err := cpi.GetwxCodeUnlimit(scene, page)
+		if err == nil {
+			http.ServeFile(c.Response().Writer, c.Request(), fileName)
+		} else {
+			http.ServeFile(c.Response().Writer, c.Request(), fileName)
+		}
+		var err2 error
+		return err2
+	})
 	// 图标
 	e.File("favicon.ico", "images/favicon.ico")
 	e.Logger.Fatal(e.Start(":8009"))
