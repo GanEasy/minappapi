@@ -34,6 +34,12 @@ func main() {
 		ret := cpi.GetPostByID(int64(id))
 		return c.JSON(http.StatusOK, ret)
 	})
+	// 获取 id getid
+	e.GET("/getid", func(c echo.Context) error {
+		url := c.QueryParam("url")
+		id := cpi.GetIDByURL(url)
+		return c.JSON(http.StatusOK, id)
+	})
 	// 检查订阅
 	e.GET("/checksubscribe", func(c echo.Context) error {
 		openID := c.QueryParam("openid")

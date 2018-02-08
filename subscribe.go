@@ -28,6 +28,15 @@ func GetPostByID(id int64) (post Post) {
 	return
 }
 
+//GetIDByURL 通过链接获取id
+func GetIDByURL(url string) (id int) {
+	post, err := GetPostByURL(url)
+	if err != nil {
+		return 0
+	}
+	return int(post.ID)
+}
+
 //CheckSubcribe 检查订阅状况
 func CheckSubcribe(openID, url string) bool {
 	fans, err := GetFansByOpenID(openID)
