@@ -17,3 +17,4 @@ conf.toml
 
 file/*
 serve/file/*
+*.db

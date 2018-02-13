@@ -1,12 +1,12 @@
 package minappapi
 
 import (
-	"fmt"
+	// "fmt"
 	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	// _ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 // Fans 粉丝
@@ -80,17 +80,17 @@ func DB() *gorm.DB {
 
 func newDB() (*gorm.DB, error) {
 
-	sqlConnection := fmt.Sprintf(
-		"host=%v user=%v port=%v dbname=%v sslmode=%v password=%v",
-		config.Database.Host,
-		config.Database.User,
-		config.Database.Port,
-		config.Database.Dbname,
-		config.Database.Sslmode,
-		config.Database.Password,
-	)
-	db, err := gorm.Open(config.Database.Type, sqlConnection)
-	// db, err := gorm.Open("sqlite3", "notice.db")
+	// sqlConnection := fmt.Sprintf(
+	// 	"host=%v user=%v port=%v dbname=%v sslmode=%v password=%v",
+	// 	config.Database.Host,
+	// 	config.Database.User,
+	// 	config.Database.Port,
+	// 	config.Database.Dbname,
+	// 	config.Database.Sslmode,
+	// 	config.Database.Password,
+	// )
+	// db, err := gorm.Open(config.Database.Type, sqlConnection)
+	db, err := gorm.Open("sqlite3", "minappapi.db")
 
 	if err != nil {
 		return nil, err
