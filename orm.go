@@ -25,6 +25,11 @@ func (post *Post) Save() {
 	DB().Save(&post)
 }
 
+// Save Share
+func (share *Share) Save() {
+	DB().Save(&share)
+}
+
 // Save Feedback
 func (feedback *Feedback) Save() {
 	DB().Save(&feedback)
@@ -34,7 +39,17 @@ func (feedback *Feedback) Save() {
 func (post *Post) GetSubscribePost() []Post {
 	var posts []Post
 	// DB().Where(&Post{}).Find(&posts)
-	DB().Where("fol_num > 0").Find(&posts)
+	DB().Where("sub_num > 0").Find(&posts)
+	// DB().Where("fol_num > 0").Find(&posts)
+	return posts
+}
+
+// GetShareRankPost Post
+func (post *Post) GetShareRankPost() []Post {
+	var posts []Post
+	// DB().Where(&Post{}).Find(&posts)
+	DB().Where("sub_num > 0").Where("share > 0").Order("share desc,id desc").Limit(100).Find(&posts)
+	// DB().Where("fol_num > 0").Find(&posts)
 	return posts
 }
 

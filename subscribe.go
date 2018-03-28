@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"time"
+
+	"github.com/yizenghui/reader"
 )
 
 //TokenServe token 服务器
@@ -124,10 +126,11 @@ func PostSubcribe(openID, formID, url string) bool {
 func GetPostByURL(url string) (*Post, error) {
 	var err error
 	var post Post
-	if url != "" {
+
+	if reader.CheckStrIsLink(url) == nil {
 		post.GetPostByURL(url)
 	} else {
-		err = errors.New(string(`url is empty!!!`))
+		err = errors.New(string(`url is fatal!!!`))
 	}
 	return &post, err
 }

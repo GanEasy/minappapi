@@ -115,6 +115,23 @@ func main() {
 		ret, _ := cpi.GetList(urlStr)
 		return c.JSON(http.StatusOK, ret)
 	})
+	// 记录分享 (我们现在通过分享次数进行排序)
+	e.GET("/sharelog", func(c echo.Context) error {
+		openID := c.QueryParam("openid")
+		url := c.QueryParam("url")
+		cs := cpi.ShareLog(openID, url)
+		type Ret struct {
+			Status bool
+		}
+		return c.JSON(http.StatusOK, Ret{Status: cs})
+
+	})
+	// 记录分享 (我们现在通过分享次数进行排序)
+	e.GET("/sharerank", func(c echo.Context) error {
+		posts := cpi.GetShareRank()
+		return c.JSON(http.StatusOK, posts)
+
+	})
 	// 获取正文
 	e.GET("/getcontent", func(c echo.Context) error {
 		urlStr := c.QueryParam("url")

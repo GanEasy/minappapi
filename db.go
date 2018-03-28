@@ -19,6 +19,17 @@ type Fans struct {
 	DeletedAt *time.Time `sql:"index"`
 }
 
+//Share 分享记录
+type Share struct {
+	ID        uint `gorm:"primary_key"`
+	FansID    uint `gorm:"index"`
+	PostID    uint
+	SubNum    int64 // 订阅次数 用户每提交一次+1
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time `sql:"index"`
+}
+
 // Feedback 粉丝
 type Feedback struct {
 	ID        uint   `gorm:"primary_key"`
@@ -38,7 +49,8 @@ type Post struct {
 	Title            string `gorm:"type:varchar(1024);"`             // 微信文章地址
 	URL              string `gorm:"type:varchar(1024);unique_index"` // 微信文章地址
 	SubNum           int64  // 订阅人次 用户每提交一次+1
-	FolNum           int64  // 当前关注人数 注，如果有人关注，每过8小时检查更新 没人关注不再推送
+	FolNum           int64  // 当前关注人数 注，如果有人关注，每过8小时检查更新
+	ShareNum         int64  `gorm:"index"`      // 分享次数 现在用于排序
 	ChapterFragments string `gorm:"type:text;"` // 章节片段
 	CreatedAt        time.Time
 	UpdatedAt        time.Time

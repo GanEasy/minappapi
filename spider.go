@@ -29,7 +29,7 @@ func CheckPostChapterUpdateAndPushSubscribe(post *Post) bool {
 
 	if post.ChapterFragments != string(b) {
 		post.ChapterFragments = string(b)
-		// todo 发通知咯 有变化了
+		//  发通知咯 有变化了
 		NoticeSubscribePostUpdate(post)
 
 		return true

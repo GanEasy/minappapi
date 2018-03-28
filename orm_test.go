@@ -21,3 +21,10 @@ func Test_GetSubscribePost(t *testing.T) {
 	posts := post.GetSubscribePost()
 	t.Fatal(posts)
 }
+
+func Test_GetShareRankPost(t *testing.T) {
+
+	var post Post
+	posts := post.GetShareRankPost()
+	t.Fatal(posts)
+}
