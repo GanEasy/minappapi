@@ -48,7 +48,8 @@ func (post *Post) GetSubscribePost() []Post {
 func (post *Post) GetShareRankPost() []Post {
 	var posts []Post
 	// DB().Where(&Post{}).Find(&posts)
-	DB().Where("sub_num > 0").Where("share > 0").Order("share desc,id desc").Limit(100).Find(&posts)
+	// DB().Where("sub_num > 0").Where("share > 0").Order("share desc,id desc").Limit(100).Find(&posts)
+	DB().Where("share_num > 0").Order("share_num desc, id desc").Limit(100).Find(&posts)
 	// DB().Where("fol_num > 0").Find(&posts)
 	return posts
 }

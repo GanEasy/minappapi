@@ -33,7 +33,7 @@ func ShareLog(openID, url string) bool {
 	}
 	share.Save()
 
-	return false
+	return true
 }
 
 //GetShareRank 获取分享排行榜
