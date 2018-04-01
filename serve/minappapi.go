@@ -112,7 +112,7 @@ func main() {
 		if urlStr == "" {
 			return c.JSON(http.StatusOK, "0")
 		}
-		ret, _ := cpi.GetList(urlStr)
+		ret, _ := cpi.GetBookMenu(urlStr)
 		return c.JSON(http.StatusOK, ret)
 	})
 	// 记录分享 (我们现在通过分享次数进行排序)
